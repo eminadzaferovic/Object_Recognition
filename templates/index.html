@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<title>Image recognition</title>
+
+</head>
+<body>
+<div class="content" align="center"><br/><br/>
+    <div align="center">
+<form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+   <h1><strong>Image recognition tool</strong></h1><br>
+    <input id="image" type="file" name="file" accept="image/*"><br/>
+    <div id="msg"></div>
+    <input type="submit" value="Upload!" id="upload-button" class="btn btn-success">
+</form><br/><br/>
+</div>
+
+<div>
+    {{argv}}
+</div>
+
+</div>
+</body>
+<script>
+    $("#image").change(function(){
+        var input = document.getElementById('image');
+        for (var i=0; i<input.files.length; i++)
+        {
+        //koala.jpg, koala.JPG substring(index) lastIndexOf('a') koala.1.jpg
+            var ext= input.files[i].name.substring(input.files[i].name.lastIndexOf('.')+1).toLowerCase()
+            if ((ext == 'jpg') || (ext == 'png'))
+            {
+                $("#msg").text("Files are supported")
+            }
+            else
+            {
+                $("#msg").text("Files are NOT supported")
+                document.getElementById("image").value ="";
+            }
+        }
+    } );
+
+</script>
+</html>
